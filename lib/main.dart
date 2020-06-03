@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:meditation_app/constants.dart';
+import 'package:meditation_app/screens/details_screen.dart';
 import 'package:meditation_app/widgets/bottom_nav_bar.dart';
 import 'package:meditation_app/widgets/category_card.dart';
 
@@ -104,7 +105,13 @@ class HomeScreen extends StatelessWidget {
                         CategoryCard(
                           svgImage: 'assets/icons/Meditation.svg',
                           title: 'Meditation',
-                          press: () {},
+                          press: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailsScreen()),
+                            );
+                          },
                         ),
                         CategoryCard(
                           svgImage: 'assets/icons/yoga.svg',
