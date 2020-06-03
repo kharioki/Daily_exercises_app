@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:meditation_app/constants.dart';
+import 'package:meditation_app/widgets/category_card.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,31 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size; // device dimensions
     return Scaffold(
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        height: 80,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            BottomNavItem(
+              svgSrc: 'assets/icons/calendar.svg',
+              title: 'Today',
+              press: () {},
+            ),
+            BottomNavItem(
+              svgSrc: 'assets/icons/gym.svg',
+              title: 'All Exercises',
+              press: () {},
+            ),
+            BottomNavItem(
+              svgSrc: 'assets/icons/Settings.svg',
+              title: 'Settings',
+              press: () {},
+            ),
+          ],
+        ),
+      ),
       body: Stack(
         children: <Widget>[
           Container(
@@ -121,60 +147,28 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class CategoryCard extends StatelessWidget {
-  final String svgImage;
+class BottomNavItem extends StatelessWidget {
+  final String svgSrc;
   final String title;
   final Function press;
 
-  const CategoryCard({
+  const BottomNavItem({
     Key key,
-    this.svgImage,
+    this.svgSrc,
     this.title,
     this.press,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(13),
-      child: Container(
-        // padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(13),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 17),
-              blurRadius: 17,
-              spreadRadius: -23,
-              color: kShadowColor,
-            ),
-          ],
-        ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: press,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: <Widget>[
-                  Spacer(),
-                  SvgPicture.asset(svgImage),
-                  Spacer(),
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        .copyWith(fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+    return GestureDetector(
+      onTap: press,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          SvgPicture.asset(svgSrc),
+          Text(title),
+        ],
       ),
     );
   }
